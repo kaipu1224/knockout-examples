@@ -1,0 +1,70 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>knockout.jsとGoogleDriveで簡単Webアプリ!</title>
+
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+  <style>
+    body {
+      margin : 12px;
+      font-size: 0.9em;
+    }
+    .number {
+      text-align:right;
+    }
+    .limited {
+      color:#ff0000;
+    }
+    a {
+      text-decoration:none;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <form class="pure-form">
+    <fieldset>
+      <legend></legend>
+      <select data-bind="options:types, optionsText: 'name', value:selectedType"></select>
+      <button class="pure-button pure-button-primary" data-bind="click: search">検索</button>
+      <button class="pure-button pure-button-secondary" data-bind="click: clear">クリア</button>
+    </fieldset>
+  </form>
+  <p data-bind="text:info"></p>
+  <table class="pure-table pure-table-bordered">
+    <thead>
+      <th>#</th>
+      <th>画像</th>
+    </thead>
+    <tbody data-bind="foreach: results">
+      <tr >
+        <td><span data-bind="text:$index()+1"></span></td>
+        <td nowrap>
+          <img data-bind="attr:{ src:url }" width="128"></img>
+          <span data-bind="text:remarks"></span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- スクリプト読込 Start -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.js"></script>
+  <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/knockout/knockout-2.2.1.js"></script>
+  <script type="text/javascript" src="js/model.js"></script>
+  <script type="text/javascript" src="js/view-model.js"></script>
+  <script type="text/javascript" src="js/listview-model.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      // Modelの定義
+      var model = new Model();
+      
+      // ViewModelの定義
+      var viewModel = new ViewModel(model);
+      
+      // Binding開始
+      ko.applyBindings(viewModel);
+    });
+  </script><!-- スクリプト読込 End -->
+</body>
+</html>

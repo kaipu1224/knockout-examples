@@ -1,0 +1,59 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>knockout.jsとGoogleDriveで簡単Webアプリ!</title>
+
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+  <style>
+    body {
+      margin : 12px;
+      font-size: 0.9em;
+    }
+    .number {
+      text-align:right;
+    }
+    .limited {
+      color:#ff0000;
+    }
+    a {
+      text-decoration:none;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <form class="pure-form">
+    <fieldset>
+      <legend>サンプル02 - イベントのバインディング</legend>
+      <button data-bind="click:okoClick">( ´_ゝ｀)σ)Д`)ﾂﾝﾂﾝ</button>
+      <h2><span data-bind="text:okonano"></span></h2>
+    </fieldset>
+  </form>
+
+  
+  <!-- スクリプト読込 Start -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.js"></script>
+  <script type="text/javascript" src="js/knockout-2.3.0.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      var ViewModel = function(){
+        this.okoTexts = ["おこ(`･ω･´)","激おこ(`Д´)","激おこぷんぷん丸(`ε´)","ムカ着火ファイヤー(°Д°#)","カム着火ｲﾝﾌｪﾙﾉｫｫｫｵｵｵｳ(`皿´#)","げきオコスティックファイナリアリティぷんぷんドリーム( ◠‿◠ )"];
+        this.okoCount = ko.observable(-1);
+        this.okonano = ko.observable("");
+        this.okoClick = function(){
+            this.okoCount(this.okoCount() + 1);
+            if(this.okoCount() > this.okoTexts.length-1){
+              alert("おしまい");
+            }else{
+              this.okonano(this.okoTexts[this.okoCount()]);
+            }
+        };
+      };
+      
+      // Binding開始
+      ko.applyBindings(new ViewModel());
+    });
+  </script><!-- スクリプト読込 End -->
+</body>
+</html>

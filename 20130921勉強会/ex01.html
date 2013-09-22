@@ -1,0 +1,56 @@
+<!doctype html>
+<head>
+  <meta charset="utf-8">
+  <title>knockout.jsとGoogleDriveで簡単Webアプリ!</title>
+
+  <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.1.0/pure-min.css">
+  <style>
+    body {
+      margin : 12px;
+      font-size: 0.9em;
+    }
+    .number {
+      text-align:right;
+    }
+    .limited {
+      color:#ff0000;
+    }
+    a {
+      text-decoration:none;
+    }
+  </style>
+  
+</head>
+
+<body>
+  <form class="pure-form">
+    <fieldset>
+      <legend>サンプル01 - 値のバインディング</legend>
+      <p>果物 : <input data-bind="value:fruit"/></p>
+      <p>色 : <input data-bind="value:color"/></p>
+      <h3><span data-bind="text:result"></span></h3>
+    </fieldset>
+  </form>
+
+  
+  <!-- スクリプト読込 Start -->
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.0.js"></script>
+  <script type="text/javascript" src="js/knockout-2.3.0.js"></script>
+  <script type="text/javascript">
+    $(function(){
+      var ViewModel = function(fruit, color){
+        // 監視したいプロパティを定義
+        this.fruit = ko.observable(fruit);
+        this.color  = ko.observable(color);
+        this.result = ko.computed(function(){
+          // ko.computedを使うと、値変更時に自動的に結果を返せる！
+          return this.fruit() + "は" + this.color();
+        }, this);
+      };
+      
+      // Binding開始
+      ko.applyBindings(new ViewModel("りんご","赤い"));
+    });
+  </script><!-- スクリプト読込 End -->
+</body>
+</html>
